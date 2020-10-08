@@ -1,0 +1,6 @@
+module Pods_spacestocktest {
+  umbrella header "Pods-spacestocktest-umbrella.h"
+
+  export *
+  module * { export * }
+}
