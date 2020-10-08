@@ -9,18 +9,19 @@ import {
   ImageBackground,
 } from "react-native";
 import _ from "lodash";
-import { dummy } from "../../Constants/dummy";
+
 import DropDownPicker from "react-native-dropdown-picker";
 import colors from "../../Config/colors";
 import { formatMoney, height, IPHONEX, width } from "../../Utils";
 import EvilIcons from "react-native-vector-icons/EvilIcons";
 import AntDesign from "react-native-vector-icons/AntDesign";
 import { TextInput } from "react-native-gesture-handler";
-const SearchResult = ({}) => {
+const SearchResult = ({ route, navigation }) => {
+  console.log(route.params);
   const [showFilter, setShowFilter] = useState(false);
 
   const [filterState, setFilterState] = useState({
-    data: dummy,
+    data: route.params.data,
     rentType: "sewa",
     hargaMin: "",
     hargaMax: "",
@@ -59,13 +60,12 @@ const SearchResult = ({}) => {
 
   const filterSellType = (rentType) => {
     if (rentType == "sewa") {
-      const arr = dummy.filter((item) => item.sellType == 0);
+      const arr = route.params.data.filter((item) => item.sellType == 0);
 
       return arr;
     } else {
-      const arr = dummy.filter((item) => item.sellType == 1);
+      const arr = route.params.data.filter((item) => item.sellType == 1);
 
-      console.log(arr);
       return arr;
     }
   };
@@ -92,7 +92,6 @@ const SearchResult = ({}) => {
         sortType,
       });
     } else if (hargaMin != "" && hargaMax != "") {
-      console.log(hargaMin, hargaMax);
       const filter3 = FilterMinPrice(filter2, hargaMin);
       const filter4 = FilterMinPrice(filter3, hargaMax);
       setFilterState({
@@ -144,7 +143,7 @@ const SearchResult = ({}) => {
             <TouchableOpacity
               onPress={() => {
                 setFilterState({
-                  data: dummy,
+                  data: route.params.data,
                   rentType: true,
                   hargaMin: "",
                   hargaMax: "",
@@ -205,6 +204,7 @@ const SearchResult = ({}) => {
     return (
       <>
         <TouchableOpacity
+          onPress={() => navigation.navigate("DetailApartmen", { data: item })}
           style={{ marginBottom: 15, borderRadius: 15, overflow: "hidden" }}
         >
           <ImageBackground
@@ -272,12 +272,17 @@ const SearchResult = ({}) => {
           flex: 1,
           paddingHorizontal: 20,
           paddingTop: IPHONEX ? 45 : 15,
-          paddingBottom: 50,
         }}
       >
         <View
           style={{ flexDirection: "row", alignItems: "center", zIndex: 10 }}
         >
+          <TouchableOpacity
+            style={{ right: 5 }}
+            onPress={() => navigation.goBack()}
+          >
+            <AntDesign name="left" size={27} color="black" />
+          </TouchableOpacity>
           <TouchableOpacity
             onPress={() => setShowFilter(true)}
             style={{
@@ -285,6 +290,7 @@ const SearchResult = ({}) => {
               backgroundColor: colors.main,
               paddingVertical: 7,
               paddingHorizontal: 20,
+              marginLeft: 10,
             }}
           >
             <Text style={{ color: "white" }}>Filter</Text>
@@ -380,7 +386,7 @@ const SearchResult = ({}) => {
         </View>
 
         <FlatList
-          style={{ marginTop: 20 }}
+          style={{ marginVertical: 20 }}
           keyExtractor={(item, index) => index.toString()}
           data={filterState.data}
           renderItem={renderItem}

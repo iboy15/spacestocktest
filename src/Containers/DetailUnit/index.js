@@ -1,5 +1,5 @@
-import React from 'react';
-import {ScrollView} from 'react-native';
+import React from "react";
+import { ScrollView } from "react-native";
 
 import {
   Top,
@@ -7,20 +7,21 @@ import {
   UnitDetail,
   AboutUnit,
   UnitFacility,
-} from './Components';
+} from "./Components";
 
-const Detail = ({}) => {
+const DetailUnit = ({ route, navigation }) => {
   return (
     <>
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={{
           flex: 1,
-          backgroundColor: '#fff',
+          backgroundColor: "#fff",
           paddingBottom: 150,
-        }}>
-        <Top />
-        <ContentDetail />
+        }}
+      >
+        <Top navigation={navigation} image={route.params.data.image} />
+        <ContentDetail name={route.params.data.nama} />
         <UnitDetail />
         <AboutUnit />
         <UnitFacility />
@@ -29,4 +30,4 @@ const Detail = ({}) => {
   );
 };
 
-export default Detail;
+export default DetailUnit;

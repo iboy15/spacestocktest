@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 
 import {
   View,
@@ -6,59 +6,64 @@ import {
   TouchableOpacity,
   StyleSheet,
   TextInput,
-} from 'react-native';
-import AutoHeightImage from 'react-native-auto-height-image';
-import {width, IPHONEX} from '../../../Utils';
-import DropDownPicker from 'react-native-dropdown-picker';
-import EvilIcons from 'react-native-vector-icons/EvilIcons';
-import colors from '../../../Config/colors';
-const Top = () => {
-  const [propertyType, setPropertyType] = useState('Apartemen');
+} from "react-native";
+import AutoHeightImage from "react-native-auto-height-image";
+import { width, IPHONEX } from "../../../Utils";
+import DropDownPicker from "react-native-dropdown-picker";
+import EvilIcons from "react-native-vector-icons/EvilIcons";
+import colors from "../../../Config/colors";
+import { dummy } from "../../../Constants/dummy";
+import SearchableDropdown from "react-native-searchable-dropdown";
+
+const Top = ({ navigation }) => {
+  const [propertyType, setPropertyType] = useState("Apartemen");
   const [isRent, setIsRent] = useState(true);
-  const [textFilter, setTextFilter] = useState('');
+  const [textFilter, setTextFilter] = useState("");
 
   const dropDownItems = [
-    {label: 'Apartemen', value: 'Apartemen'},
-    {label: 'Kantor', value: 'Kantor'},
+    { label: "Apartemen", value: "Apartemen" },
+    { label: "Kantor", value: "Kantor" },
   ];
 
   return (
     <>
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1, zIndex: 10 }}>
         <AutoHeightImage
           width={width}
-          source={require('../../../Assets/Images/banner.png')}
+          source={require("../../../Assets/Images/banner.png")}
         />
         <View style={styles.topContainer}>
-          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View
+            style={{ flexDirection: "row", justifyContent: "space-between" }}
+          >
             <AutoHeightImage
               width={width / 2.5}
-              source={require('../../../Assets/Images/spacestock.png')}
+              source={require("../../../Assets/Images/spacestock.png")}
             />
             <View>
-              <Text style={{textAlign: 'right', fontWeight: 'bold'}}>
+              <Text style={{ textAlign: "right", fontWeight: "bold" }}>
                 Properti
               </Text>
-              <Text style={{textAlign: 'right', fontWeight: 'bold'}}>
+              <Text style={{ textAlign: "right", fontWeight: "bold" }}>
                 di Ujung Jari
               </Text>
             </View>
           </View>
-          <View style={{flexDirection: 'row', marginTop: 10}}>
-            <View style={{width: '65%', paddingRight: 10}}>
+          <View style={{ flexDirection: "row", marginTop: 10, zIndex: 4 }}>
+            <View style={{ width: "65%", paddingRight: 10 }}>
               <Text>Cari</Text>
               <DropDownPicker
                 items={dropDownItems}
                 defaultValue={propertyType}
-                containerStyle={{height: 40, marginTop: 7}}
-                style={{backgroundColor: '#fafafa'}}
+                containerStyle={{ height: 40, marginTop: 7 }}
+                style={{ backgroundColor: "#fafafa" }}
                 itemStyle={styles.dropDownItemStyle}
-                dropDownStyle={{backgroundColor: '#fafafa'}}
+                dropDownStyle={{ backgroundColor: "#fafafa" }}
                 onChangeItem={(item) => setPropertyType(item.value)}
               />
             </View>
 
-            <View style={{width: '35%'}}>
+            <View style={{ width: "35%" }}>
               <Text>Saya Ingin</Text>
               <View style={styles.rentOptionContainer}>
                 <TouchableOpacity
@@ -66,14 +71,16 @@ const Top = () => {
                   style={[
                     styles.rentBtnContainer,
                     {
-                      backgroundColor: isRent ? colors.main : 'white',
+                      backgroundColor: isRent ? colors.main : "white",
                     },
-                  ]}>
+                  ]}
+                >
                   <Text
                     style={{
-                      color: isRent ? 'white' : 'black',
-                      textAlign: 'center',
-                    }}>
+                      color: isRent ? "white" : "black",
+                      textAlign: "center",
+                    }}
+                  >
                     Sewa
                   </Text>
                 </TouchableOpacity>
@@ -82,35 +89,75 @@ const Top = () => {
                   style={[
                     styles.rentBtnContainer,
                     {
-                      backgroundColor: isRent ? 'white' : colors.main,
+                      backgroundColor: isRent ? "white" : colors.main,
                     },
-                  ]}>
+                  ]}
+                >
                   <Text
                     style={{
-                      color: isRent ? 'black' : 'white',
-                      textAlign: 'center',
-                    }}>
+                      color: isRent ? "black" : "white",
+                      textAlign: "center",
+                    }}
+                  >
                     Beli
                   </Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
-          <View style={{marginTop: 7}}>
+          <View style={{ marginTop: 7, zIndex: 110 }}>
             <Text>Cari Lokasi</Text>
             <View style={styles.searchContainer}>
               <EvilIcons
                 name="search"
                 size={24}
                 color="gray"
-                style={{opacity: 0.6}}
+                style={{ opacity: 0.6 }}
+                style={{ width: "8%" }}
               />
-              <TextInput
-                value={textFilter}
-                onChangeText={setTextFilter}
-                placeholder="Ketik Lokasi atau nama gedung"
-                style={{height: 40}}
+              <SearchableDropdown
+                onItemSelect={(item) => {
+                  navigation.navigate("DetailApartmen", { data: item });
+                }}
+                containerStyle={{ padding: 5, width: "92%" }}
+                itemStyle={{
+                  padding: 10,
+                  marginTop: 2,
+                  backgroundColor: "#ddd",
+                  borderColor: "#bbb",
+                  borderWidth: 1,
+                  borderRadius: 5,
+                }}
+                itemTextStyle={{ color: "#222" }}
+                itemsContainerStyle={{ maxHeight: 200 }}
+                items={dummy}
+                defaultIndex={0}
+                resetValue={false}
+                textInputProps={{
+                  placeholder: "Cari nama Gedung",
+                  underlineColorAndroid: "transparent",
+                  style: {
+                    zIndex: 150,
+                    padding: 10,
+                    borderWidth: 1,
+                    borderColor: "#ccc",
+                    borderRadius: 5,
+                  },
+                  // onTextChange: (text) => alert(text),
+                }}
+                listProps={{
+                  nestedScrollEnabled: true,
+                }}
               />
+              {/* <TouchableOpacity
+                style={{
+                  padding: 10,
+                  backgroundColor: colors.main,
+                  borderRadius: 8,
+                }}
+              >
+                <Text style={{ color: "white" }}>Cari</Text>
+              </TouchableOpacity> */}
             </View>
           </View>
         </View>
@@ -121,15 +168,17 @@ const Top = () => {
 
 const styles = StyleSheet.create({
   searchContainer: {
-    flexDirection: 'row',
-    backgroundColor: 'white',
+    zIndex: 100,
+    flexDirection: "row",
+    backgroundColor: "white",
     paddingLeft: 10,
     marginTop: 5,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
+    marginBottom: 15,
   },
   topContainer: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     top: 0,
     paddingTop: IPHONEX ? 40 : 10,
@@ -137,20 +186,20 @@ const styles = StyleSheet.create({
     width,
   },
   dropDownItemStyle: {
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
   },
   rentOptionContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     borderRadius: 8,
     borderWidth: 1,
     borderColor: colors.main,
     marginTop: 7,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   rentBtnContainer: {
-    width: '50%',
-    justifyContent: 'center',
+    width: "50%",
+    justifyContent: "center",
     paddingVertical: 8,
     paddingHorizontal: 12,
   },

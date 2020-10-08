@@ -11,14 +11,11 @@ const unitImage = [
   require("../../../Assets/Images/no-image.jpg"),
   require("../../../Assets/Images/no-image.jpg"),
 ];
-const Top = ({ navigation }) => {
+const Top = ({ navigation, image }) => {
   return (
     <>
       <TouchableOpacity>
-        <AutoHeightImage
-          width={width}
-          source={require("../../../Assets/Images/apartemen/kalibatgrenunit3.jpg")}
-        />
+        <AutoHeightImage width={width} source={{ uri: image }} />
       </TouchableOpacity>
       <View style={{ flexDirection: "row" }}>
         {unitImage.map((item, index) => {

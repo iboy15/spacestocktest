@@ -1,47 +1,48 @@
-import React, {useState} from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {width} from '../../../Utils';
-import Carousel, {Pagination} from 'react-native-snap-carousel';
-import AutoHeightImage from 'react-native-auto-height-image';
+import React, { useState } from "react";
+import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { width } from "../../../Utils";
+import Carousel from "react-native-snap-carousel";
+import AutoHeightImage from "react-native-auto-height-image";
 const listImages = [
   {
-    nama: 'Jakarta Pusat',
-    image: require('../../../Assets/Images/lokasi/jakarta_pusat.png'),
+    nama: "Jakarta Pusat",
+    image: require("../../../Assets/Images/lokasi/jakarta_pusat.png"),
   },
 
   {
-    nama: 'Jakarta Timur',
-    image: require('../../../Assets/Images/lokasi/jakarta_timur.png'),
+    nama: "Jakarta Timur",
+    image: require("../../../Assets/Images/lokasi/jakarta_timur.png"),
   },
   {
-    nama: 'Jakarta Selatan',
-    image: require('../../../Assets/Images/lokasi/jakarta_selatan.png'),
+    nama: "Jakarta Selatan",
+    image: require("../../../Assets/Images/lokasi/jakarta_selatan.png"),
   },
   {
-    nama: 'Jakarta Barat',
-    image: require('../../../Assets/Images/lokasi/jakarta_barat.png'),
+    nama: "Jakarta Barat",
+    image: require("../../../Assets/Images/lokasi/jakarta_barat.png"),
   },
   {
-    nama: 'Jakarta Utara',
-    image: require('../../../Assets/Images/lokasi/jakarta_utara.png'),
+    nama: "Jakarta Utara",
+    image: require("../../../Assets/Images/lokasi/jakarta_utara.png"),
   },
 ];
 const Telusuri = ({}) => {
   const [isActive, setAcitve] = useState(0);
 
-  const renderItem = ({item}) => {
+  const renderItem = ({ item }) => {
     return (
       <TouchableOpacity style={styles.imgContainer}>
         <AutoHeightImage source={item.image} width={width / 3} />
         <Text
           style={{
-            position: 'absolute',
+            position: "absolute",
             bottom: 10,
 
-            alignSelf: 'center',
-            color: 'white',
-            fontWeight: 'bold',
-          }}>
+            alignSelf: "center",
+            color: "white",
+            fontWeight: "bold",
+          }}
+        >
           {item.nama}
         </Text>
       </TouchableOpacity>
@@ -54,12 +55,13 @@ const Telusuri = ({}) => {
         marginTop: 15,
         width,
         paddingLeft: 15,
-      }}>
-      <Text style={{fontWeight: 'bold', fontSize: 18, marginBottom: 10}}>
+      }}
+    >
+      <Text style={{ fontWeight: "bold", fontSize: 18, marginBottom: 10 }}>
         Telusuri
       </Text>
       <Carousel
-        activeSlideAlignment={'start'}
+        activeSlideAlignment={"start"}
         data={listImages}
         renderItem={renderItem}
         sliderWidth={width}
@@ -79,8 +81,8 @@ const Telusuri = ({}) => {
 const styles = StyleSheet.create({
   imgContainer: {
     borderRadius: 8,
-    overflow: 'hidden',
-    alignSelf: 'flex-start',
+    overflow: "hidden",
+    alignSelf: "flex-start",
   },
 });
 

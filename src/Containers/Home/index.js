@@ -1,5 +1,5 @@
-import React from 'react';
-import {ScrollView} from 'react-native';
+import React from "react";
+import { ScrollView, View } from "react-native";
 
 import {
   Top,
@@ -7,24 +7,25 @@ import {
   MiddleBanner,
   CarouselBanner,
   Telusuri,
-} from './Components';
+} from "./Components";
 
-const Home = () => {
+const Home = ({ route, navigation }) => {
   return (
     <>
-      <ScrollView
+      <View
         showsVerticalScrollIndicator={false}
         style={{
           flex: 1,
-          backgroundColor: '#fff',
+          backgroundColor: "#fff",
           paddingBottom: 100,
-        }}>
-        <Top />
-        <UnitContent />
+        }}
+      >
+        <Top navigation={navigation} />
+        <UnitContent navigation={navigation} />
         <MiddleBanner />
         <CarouselBanner />
-        <Telusuri />
-      </ScrollView>
+        <Telusuri navigation={navigation} />
+      </View>
     </>
   );
 };

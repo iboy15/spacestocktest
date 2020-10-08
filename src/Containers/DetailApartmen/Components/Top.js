@@ -11,14 +11,11 @@ const unitImage = [
   require("../../../Assets/Images/apartemen/kalibatacitygreenInterior.jpg"),
   require("../../../Assets/Images/no-image.jpg"),
 ];
-const Top = ({}) => {
+const Top = ({ navigation, image }) => {
   return (
     <>
       <TouchableOpacity>
-        <AutoHeightImage
-          width={width}
-          source={require("../../../Assets/Images/apartemen/kalibatacitygreen.jpg")}
-        />
+        <AutoHeightImage width={width} source={{ uri: image }} />
       </TouchableOpacity>
       <View style={{ flexDirection: "row" }}>
         {unitImage.map((item, index) => {
@@ -38,6 +35,7 @@ const Top = ({}) => {
         })}
       </View>
       <TouchableOpacity
+        onPress={() => navigation.goBack()}
         style={{
           position: "absolute",
           top: IPHONEX ? 40 : 20,
